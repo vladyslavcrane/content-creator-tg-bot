@@ -1,0 +1,7 @@
+.envrc
+media/
+venv/
+*.log
+*_response.json
+.pytest_cache/
+__pycache__/
