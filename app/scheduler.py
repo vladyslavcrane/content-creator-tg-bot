@@ -1,6 +1,6 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from config import config
+from app.config import config
 
 
 def setup_scheduler(bot, jobs):

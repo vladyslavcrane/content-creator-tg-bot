@@ -3,9 +3,9 @@ from typing import Dict, Optional
 from aiogram import Bot
 
 from aiogram.types import Message, URLInputFile, User
-from templates import get_rendered_template
-from api import fetch_post_movie_data
-from parser import parse_imdb_urls
+from app.templates import get_rendered_template
+from app.api import fetch_post_movie_data
+from app.parser import parse_imdb_urls
 
 log = logging.getLogger(__name__)
 
@@ -31,5 +31,5 @@ async def post_movie(bot: Bot, chat_id: int, user: Optional[User] = None) -> Dic
         if user:
             return await message.forward(user.id)
     except Exception as e:
-        await bot.send_message('Post failed')
+        await bot.send_message(text='Post failed', chat_id=user.id)
         log.exception(f"Error posting movie: {e}")

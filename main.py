@@ -11,9 +11,9 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
 from app.handlers import router, set_default_commands
-from jobs import post_movie
-from config import config
-from scheduler import setup_scheduler
+from app.jobs import post_movie
+from app.config import config
+from app.scheduler import setup_scheduler
 
 # Bot token can be obtained via https://t.me/BotFather
 TOKEN = getenv("TG_BOT_TOKEN")

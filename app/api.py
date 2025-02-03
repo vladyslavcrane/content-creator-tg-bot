@@ -4,7 +4,7 @@ import json
 from typing import Union
 import openai
 
-from config import config
+from app.config import config
 
 log = logging.getLogger(__name__)
 

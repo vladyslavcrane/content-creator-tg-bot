@@ -12,7 +12,7 @@ class Singleton:
 
 @dataclass
 class Config(Singleton):
-    BASE_DIR: Path = Path(__file__).resolve().parent
+    BASE_DIR: Path = Path(__file__).resolve().parent.parent
     LOG_FILE: Path = BASE_DIR / "logfile.log"
     MOOVIES_CHAT_USERNAME: str = "@xffilmsx"
     OWNER_USERNAME: str = "vladyslavcrane"

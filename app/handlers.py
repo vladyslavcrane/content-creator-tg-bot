@@ -2,8 +2,8 @@ from aiogram import F, Router
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message, CallbackQuery, BotCommand
 
-from config import config
-from jobs import post_movie
+from app.config import config
+from app.jobs import post_movie
 from app.keyboards import admin_inline
 
 router = Router()
