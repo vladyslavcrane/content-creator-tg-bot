@@ -5,3 +5,4 @@ venv/
 *_response.json
 .pytest_cache/
 __pycache__/
+.direnv/

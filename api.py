@@ -4,7 +4,7 @@ import json
 from typing import Union
 import openai
 
-from settings import BASE_DIR
+from config import config
 
 log = logging.getLogger(__name__)
 
@@ -22,10 +22,10 @@ def get_prompt_from_file(fp: Union[str, "os.PathLike[str]"]):
     return prompt
 
 
-def get_completion(prompt: str = ""):
+def _get_completion(prompt: str = ""):
 
     if not prompt:
-        prompt = get_prompt_from_file(BASE_DIR / "prompt.txt")
+        prompt = get_prompt_from_file(config.BASE_DIR / "prompt.txt")
 
     if prompt and isinstance(prompt, str):
         log.info('Asking ChatGPT....')
@@ -49,7 +49,8 @@ def get_completion(prompt: str = ""):
 
         current_response = json.loads(answer)
 
-        with open(BASE_DIR / 'openai_movie_responses.json', 'r+') as file:
+        # TODO: store in DB
+        with open(config.BASE_DIR / 'openai_movies_response.json', 'r+') as file:
             responses = json.load(file)
             responses['all'].append(current_response)
 
@@ -61,3 +62,11 @@ def get_completion(prompt: str = ""):
     log.warning("Couldn't parse a prompt. OpenAI API hasn't called")
 
     return {}
+
+def fetch_post_movie_data():
+    if config.mock_data:
+        file_path = config.BASE_DIR / 'gpt_response.json'
+        log.info(f'Using mock data `{file_path}` for posting.')
+        with open(file_path) as f:
+            return json.load(f)
+    return _get_completion()
