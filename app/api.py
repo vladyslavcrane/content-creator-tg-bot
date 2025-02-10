@@ -2,6 +2,8 @@ import logging
 import os
 import json
 from typing import Union
+
+import aiofiles
 import openai
 
 from app.config import config
@@ -13,13 +15,12 @@ client = openai.Client()
 def get_prompt_from_file(fp: Union[str, "os.PathLike[str]"]):
     try:
         with open(fp) as file:
-            prompt = file.read()
+            return file.read()
     except FileNotFoundError:
         log.error(
             f"Trying to get a prompt from file `{fp}` failed. Returning empty string."
         )
         return ""
-    return prompt
 
 
 def _get_completion(prompt: str = ""):
@@ -63,10 +64,11 @@ def _get_completion(prompt: str = ""):
 
     return {}
 
-def fetch_post_movie_data():
+async def fetch_post_movie_data():
     if config.mock_data:
         file_path = config.BASE_DIR / 'gpt_response.json'
         log.info(f'Using mock data `{file_path}` for posting.')
-        with open(file_path) as f:
-            return json.load(f)
+        async with aiofiles.open(file_path) as f:
+            file_content = await f.read()
+            return json.loads(file_content)
     return _get_completion()
