@@ -12,7 +12,6 @@ from aiogram.enums import ParseMode
 
 from app.handlers import router, set_default_commands
 from app.config import config
-from app.scheduler.scheduler import setup_scheduler
 from app.db import init_mongodb
 
 # Bot token can be obtained via https://t.me/BotFather

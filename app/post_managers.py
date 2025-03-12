@@ -35,13 +35,14 @@ class MooviePostManager(PostManager):
         # self.format_content(content)
         return content
 
-    def _get_extra_content(self, content):
-        media_urls = parse_imdb_urls(content["imdb_link"])
+    async def _get_extra_content(self, content):
+        media_urls = await parse_imdb_urls(content["imdb_link"])
         return {'media_urls': media_urls}
 
-    def _create_media_group(self, content):
+    async def _create_media_group(self, content):
         album_builder = MediaGroupBuilder()
-        for media_url in self._get_extra_content(content)['media_urls']:
+        extra_content = await self._get_extra_content(content)
+        for media_url in extra_content["media_urls"]:
             try:
                 media_file = URLInputFile(media_url)
                 album_builder.add_photo(media_file)
@@ -63,7 +64,7 @@ class MooviePostManager(PostManager):
         await obj.insert()
 
         # create tg post
-        media_group = self._create_media_group(content)
+        media_group = await self._create_media_group(content)
 
         # post
         log.info(f'Posting with data:\n{content}')
