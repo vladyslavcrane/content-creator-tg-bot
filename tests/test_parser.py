@@ -2,7 +2,7 @@ import os
 import pytest
 from bs4 import BeautifulSoup
 
-from app.parser import find_poster_image_src, find_movie_photos_src, strip_media_amazon_url
+from app.api.parser import find_poster_image_src, find_movie_photos_src, strip_media_amazon_url
 
 success_results = {
     "poster_url": "https://m.media-amazon.com/images/M/MV5BY2IzNzMxZjctZjUxZi00YzAxLTk3ZjMtODFjODdhMDU5NDM1XkEyXkFqcGc@._V1_QL75.jpg",

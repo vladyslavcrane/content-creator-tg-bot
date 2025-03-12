@@ -6,12 +6,12 @@ from aiogram import Bot
 from aiogram.types import Message, URLInputFile, User
 from aiogram.utils.media_group import MediaGroupBuilder
 
-from app.templates import get_rendered_template
-from app.api import ContentClient
+from app.ui.templates import get_rendered_template
+from app.api.client import ContentClient
 from app.db.mongo.documents import Moovie
-from app.parser import parse_imdb_urls
+from app.api.parser import parse_imdb_urls
 from app.prompts.loaders import FilePromptLoader
-from app.keyboards import admin_inline
+from app.ui.keyboards import admin_inline
 
 
 log = logging.getLogger(__name__)

@@ -3,9 +3,9 @@ from aiogram.filters import Command
 from aiogram.types import Message, BotCommand
 import openai
 
-from app.api import OpenAIContentClient
+from app.api.client import OpenAIContentClient
 from app.config import config
-from app.managers import MooviePostManager
+from app.post_managers import MooviePostManager
 from app.prompts.loaders import FilePromptLoader
 
 router = Router()
