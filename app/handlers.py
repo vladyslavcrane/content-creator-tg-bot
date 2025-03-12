@@ -1,9 +1,12 @@
 from aiogram import F, Router
-from aiogram.filters import Command, CommandStart
-from aiogram.types import Message, CallbackQuery, BotCommand
+from aiogram.filters import Command
+from aiogram.types import Message, BotCommand
+import openai
 
+from app.api import OpenAIContentClient
 from app.config import config
-from app.jobs import post_movie
+from app.managers import MooviePostManager
+from app.prompts.loaders import FilePromptLoader
 
 router = Router()
 
@@ -13,35 +16,12 @@ async def set_default_commands(bot):
         [
             BotCommand(
                 command="postrandommovie", description="Запостить рандомный фильм"
-            ),
-            BotCommand(
-                command="postcontentfromfile",
-                description="Запостить контент из файла (.json)",
-            ),
-            BotCommand(
-                command="postcontentfromjson",
-                description="Запостить контент из JSON-объекта",
-            ),
+            )
         ]
     )
 
-
-@router.message(CommandStart())
-async def command_start_handler(message: Message) -> None:
-    """
-    This handler receives messages with `/start` command
-    """
-    # Most event objects have aliases for API methods that can be called in events' context
-    # For example if you want to answer to incoming message you can use `message.answer(...)` alias
-    # and the target chat will be passed to :ref:`aiogram.methods.send_message.SendMessage`
-    # method automatically or call API method directly via
-    # Bot instance: `bot.send_message(chat_id=message.chat.id, ...)`
-    user = message.from_user
-    await message.reply(f"Hello, {user}. Click on a menu to see available commands.")
-
-
 @router.message(Command("postrandommovie"))
-async def post_movie_handler(message: Message, bot) -> None:
+async def post_random_movie_handler(message: Message, bot) -> None:
     """
     Handler will forward receive a message back to the sender
 
@@ -54,9 +34,7 @@ async def post_movie_handler(message: Message, bot) -> None:
         return
 
     await message.answer(f"Posting...")
-    await post_movie(bot, config.MOOVIES_CHAT_USERNAME, user)
 
-@router.callback_query(F.data == "edit_post")
-async def edit_post_handler(callback: CallbackQuery):
-    await callback.answer("...")
-    await callback.message.answer("ok")
+    post_manager = MooviePostManager(OpenAIContentClient())
+    prompt = FilePromptLoader.get_prompt(f"{config.BASE_DIR}/prompts/random_moovie.txt")
+    await post_manager.make_post(prompt, bot, config.MOOVIES_CHAT_USERNAME)

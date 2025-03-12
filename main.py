@@ -11,7 +11,6 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
 from app.handlers import router, set_default_commands
-from app.jobs import post_movie
 from app.config import config
 from app.scheduler import setup_scheduler
 from app.db import init_mongodb
@@ -27,11 +26,11 @@ dp.include_router(router)
 async def main() -> None:
     # Initialize Bot instance with default bot properties which will be passed to all API calls
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-    jobs = [
-        (post_movie, config.CRON_SCHEDULE["POST_MOVIE"]),
-    ]
+    # jobs = [
+    #     (post_movie, config.CRON_SCHEDULE["POST_MOVIE"]),
+    # ]
 
-    setup_scheduler(bot, jobs)
+    # setup_scheduler(bot, jobs)
 
     ########## Mongo
     await init_mongodb()

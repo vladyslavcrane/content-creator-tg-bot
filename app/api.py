@@ -7,7 +7,6 @@ import aiofiles
 import openai
 
 from app.config import config
-from app.db.mongo.documents import Moovie
 
 log = logging.getLogger(__name__)
 
@@ -23,16 +22,8 @@ def get_prompt_from_file(fp: Union[str, "os.PathLike[str]"]):
         )
         return ""
 
-async def get_mocked_completion():
-    file_path = config.BASE_DIR / 'gpt_response.json'
-    log.info(f'Using mock data `{file_path}` for posting.')
-    async with aiofiles.open(file_path) as f:
-        file_content = await f.read()
-        return json.loads(file_content)
-    
-async def _get_completion(prompt: str = ""):
-    if config.mock_data:
-        return await get_mocked_completion()
+
+def _get_completion(prompt: str = ""):
 
     if not prompt:
         prompt = get_prompt_from_file(config.BASE_DIR / "prompt.txt")
@@ -74,9 +65,10 @@ async def _get_completion(prompt: str = ""):
     return {}
 
 async def fetch_post_movie_data():
-    moovie_data = await _get_completion()
-
-    moovie = Moovie(**moovie_data)
-    await moovie.insert()
-
-    return moovie
+    if config.mock_data:
+        file_path = config.BASE_DIR / 'gpt_response.json'
+        log.info(f'Using mock data `{file_path}` for posting.')
+        async with aiofiles.open(file_path) as f:
+            file_content = await f.read()
+            return json.loads(file_content)
+    return _get_completion()

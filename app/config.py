@@ -1,14 +1,16 @@
-from pathlib import Path
 from dataclasses import dataclass
-from typing import Dict, Any
+from pathlib import Path
+from typing import Any, Dict
+
 
 class Singleton:
     _instance = None
-    
+
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super().__new__(cls, *args, **kwargs)
         return cls._instance
+
 
 @dataclass
 class Config(Singleton):
@@ -29,5 +31,6 @@ class Config(Singleton):
                     "timezone": "Europe/Istanbul",
                 }
             }
+
 
 config = Config()

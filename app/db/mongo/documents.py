@@ -4,10 +4,10 @@ from beanie import Document
 class Moovie(Document):
     title: str
     release_year: int
-    director: str
+    director: List[str]
     plot: str
     genres: List[str]
-    actors: List[str]
+    starring: List[str]
     imdb_link: str
     imdb_rating: float
     posted: bool = False

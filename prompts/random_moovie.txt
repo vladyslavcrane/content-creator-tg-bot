@@ -1,0 +1,14 @@
+###
+Find a random movie from IMDB that: was released between 1989-2024, has a rating above 7.5.
+###
+Reply with an unformatted JSON object.
+###
+JSON fields:
+title: (string),
+release_year: (integer),
+director: (array),
+plot: (string),
+genres: (array),
+starring: (array),
+imdb_link: link to IMDB (url),
+imdb_rating: moovie's IMDB rating (float)

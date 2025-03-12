@@ -1,9 +1,9 @@
 🍿 <b><u>{{ obj.title.upper() }}</u> ({{ obj.release_year }})</b>
-Жанр: <b>{{ obj.genres }}</b>
-В гланых ролях: <b>{{ obj.actors }}</b>
-Режиссёр: <b>{{ obj.director }}</b>
+Genres: <b>{{ ', '.join(obj.genres).strip(',') }}</b>
+Starring: <b>{{ ', '.join(obj.starring).strip(',') }}</b>
+Director: <b>{{ ', '.join(obj.genres).strip(',') }}</b>
 
-<u>О чём фильм?</u>
+<u>Plot:</u>
 <i>{{ obj.plot }}</i>
 
 <a href="{{ imdb_link }}">IMDB</a> {{ obj.imdb_rating }}
