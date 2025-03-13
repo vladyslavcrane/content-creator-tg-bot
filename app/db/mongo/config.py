@@ -1,9 +1,9 @@
 from os import getenv
-from typing import List, Type, Optional
+from typing import Any, List, Type, Optional
 from beanie import Document, init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 
-client: Optional[AsyncIOMotorClient] = None
+client: Optional[AsyncIOMotorClient[Any]] = None
 
 def load_models() -> List[Type[Document]]:
     """
@@ -16,7 +16,7 @@ def load_models() -> List[Type[Document]]:
         Moovie,
     ]
 
-async def init_mongodb():
+async def init_mongodb() -> None:
     """
     Initialize MongoDB connection and Beanie ODM.
     """
@@ -32,4 +32,3 @@ async def init_mongodb():
         document_models=load_models()
     )
     
-    return client

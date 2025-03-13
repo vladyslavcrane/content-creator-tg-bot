@@ -1,5 +1,6 @@
 import re
 import logging
+from typing import List
 import httpx
 from bs4 import BeautifulSoup
 
@@ -36,7 +37,7 @@ def strip_media_amazon_url(url, delimeter="@"):
     return stripped_url
 
 
-async def parse_imdb_urls(url):
+async def parse_imdb_pictures_urls(url: str) -> List[str]:
     async with httpx.AsyncClient() as client:
         response = await client.get(url, headers=HEADERS)
     soup = BeautifulSoup(response.content, features="html.parser")

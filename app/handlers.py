@@ -1,7 +1,6 @@
-from aiogram import F, Router
+from aiogram import Bot, F, Router
 from aiogram.filters import Command
 from aiogram.types import Message, BotCommand
-import openai
 
 from app.api.client import OpenAIContentClient
 from app.config import config
@@ -11,7 +10,7 @@ from app.prompts.loaders import FilePromptLoader
 router = Router()
 
 
-async def set_default_commands(bot):
+async def set_default_commands(bot: Bot) -> None:
     await bot.set_my_commands(
         [
             BotCommand(
