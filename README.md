@@ -1,6 +1,6 @@
-# Daily Movies Bot
+# Content creator bot
 
-A Telegram bot that posts daily movie recommendations to a specified channel or chat.
+A Telegram bot that posts movies recommendations to a specified channel or chat.
 
 ## Overview
 
