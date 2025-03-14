@@ -1,0 +1,5 @@
+services:
+  bot-app:
+    image: bot-app:latest
+    container_name: bot-app-container
+    command: "python main.py"
