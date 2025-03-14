@@ -51,7 +51,9 @@ async def parse_imdb_pictures_urls(url: str) -> List[str]:
     try:
         photos_url = find_movie_photos_src(soup)
     except (KeyError, AttributeError, TypeError) as exc:
-        log.exception("Parsing `{url}` movie's photos failed with exception: {exc}")
+        log.exception(
+            "Parsing `{url}` movie's photos failed with exception: {exc}"
+        )
         photos_url = []
 
     return [poster_url, *photos_url]

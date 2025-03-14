@@ -14,10 +14,12 @@ async def set_default_commands(bot: Bot) -> None:
     await bot.set_my_commands(
         [
             BotCommand(
-                command="postrandommovie", description="Запостить рандомный фильм"
+                command="postrandommovie",
+                description="Post random moovie",
             )
         ]
     )
+
 
 @router.message(Command("postrandommovie"))
 async def post_random_movie_handler(message: Message, bot) -> None:
@@ -35,5 +37,7 @@ async def post_random_movie_handler(message: Message, bot) -> None:
     await message.answer(f"Posting...")
 
     post_manager = MooviePostManager(OpenAIContentClient())
-    prompt = FilePromptLoader.get_prompt(f"{config.BASE_DIR}/prompts/random_moovie.txt")
+    prompt = FilePromptLoader.get_prompt(
+        f"{config.BASE_DIR}/prompts/random_moovie.txt"
+    )
     await post_manager.make_post(prompt, bot, config.MOOVIES_CHAT_USERNAME)

@@ -46,16 +46,17 @@ class OpenAIContentClient(ContentClient):
         )
         raw_content = completion.choices[0].message.content
         log.info(f"ChatGPT answered:\n{raw_content}")
-        self.content = self.serialize_content(raw_content or '')
-      
+        self.content = self.serialize_content(raw_content or "")
+
         return self.content
 
-    def serialize_content(self, content: Union[str, bytes, bytearray]) -> Dict[Any, Any]:
+    def serialize_content(
+        self, content: Union[str, bytes, bytearray]
+    ) -> Dict[Any, Any]:
         try:
             serialized_content = json.loads(content)
             if not isinstance(serialized_content, dict):
-                raise ContentSerializationError(f'Content is not a dictionary')
+                raise ContentSerializationError(f"Content is not a dictionary")
             return serialized_content
         except (TypeError, ValueError):
-            raise ContentSerializationError(f'Content serialization failed')
-        
+            raise ContentSerializationError(f"Content serialization failed")

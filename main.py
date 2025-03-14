@@ -24,7 +24,9 @@ dp.include_router(router)
 
 async def main() -> None:
     # Initialize Bot instance with default bot properties which will be passed to all API calls
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(
+        token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
     # jobs = [
     #     (post_movie, config.CRON_SCHEDULE["POST_MOVIE"]),
     # ]
@@ -61,5 +63,7 @@ if __name__ == "__main__":
     console_handler.setFormatter(log_formatter)
     console_handler.setLevel(logging.INFO)
 
-    logging.basicConfig(level=logging.INFO, handlers=[file_handler, console_handler])
+    logging.basicConfig(
+        level=logging.INFO, handlers=[file_handler, console_handler]
+    )
     asyncio.run(main())

@@ -1,6 +1,7 @@
 from typing import List
 from beanie import Document
 
+
 class Moovie(Document):
     title: str
     release_year: int

@@ -2,8 +2,9 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
 class FilePromptLoader:
-    
+
     @staticmethod
     def get_prompt(file_path):
         try:
@@ -13,4 +14,4 @@ class FilePromptLoader:
             log.error(
                 f"Trying to get a prompt from file `{file_path}` failed."
             )
-            return ""    
+            return ""
