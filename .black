@@ -1,0 +1,9 @@
+[tool.black]
+line-length=79
+exclude='''
+	venv/
+	tests/
+	direnv/
+	mypy_cache/
+	pytest_cache/
+'''

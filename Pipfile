@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+aiogram = "*"
+beanie = "*"
+beautifulsoup4 = "*"
+openai = "*"
+jinja2 = "*"
+
+[dev-packages]
+pytest = "*"
+flake8 = "*"
+isort = "*"
+black = "*"
+pre-commit = "*"
+
+[requires]
+python_version = "3.12"
